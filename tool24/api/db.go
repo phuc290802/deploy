@@ -8,14 +8,13 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/database/cockroachdb"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/jackc/pgx/v4/pgxpool"
-	"github.com/joho/godotenv"
 )
 
 func NewDb() (*Db, error) {
-	err := godotenv.Load(".env")
-	if err != nil {
-		return nil, fmt.Errorf("Error loading .env file: %v", err)
-	}
+	// err := godotenv.Load(".env")
+	// if err != nil {
+	// 	return nil, fmt.Errorf("Error loading .env file: %v", err)
+	// }
 
 	user := os.Getenv("DB_USER")
 	password := os.Getenv("DB_PASSWORD")
