@@ -12,6 +12,7 @@ import (
 	"github.com/jackc/pgx/v4/pgxpool"
 )
 
+// á đù vip
 type Todo struct {
 	ID        string     `json:"id" validate:"required"`
 	Title     string     `json:"title" validate:"required"`
