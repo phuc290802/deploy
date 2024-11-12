@@ -1,0 +1,43 @@
+# Bỏ qua các file binary được build từ Go
+*.exe
+*.dll
+*.so
+*.dylib
+*.bin
+*.log
+*.out
+
+# Bỏ qua các file build tạm thời
+*.a
+*.o
+
+# Các file môi trường và cấu hình nhạy cảm
+.env
+
+
+# Các thư mục biên dịch
+bin/
+obj/
+tmp/
+
+# Các file log
+*.log
+
+# Các file tạm của IDE và hệ thống
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Các file backup của editor
+*~
+*.swp
+
+# Thư mục chứa dữ liệu cache của module Go
+go.sum
+go.work
+go.work.sum
+
+# Các thư mục của Go test
+testdata/
+coverage.out

@@ -1,0 +1,212 @@
+basePath: /
+definitions:
+  main.ErrorResponse:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  main.StatusResponse:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  main.Todo:
+    properties:
+      created_at:
+        type: string
+      description:
+        type: string
+      done:
+        type: boolean
+      done_at:
+        type: string
+      id:
+        type: string
+      title:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Đây là API đơn giản để quản lý các công việc.
+  title: Todo API
+  version: "1.0"
+paths:
+  /todo:
+    post:
+      consumes:
+      - application/json
+      description: Create a new todo item in the database
+      parameters:
+      - description: Todo to create
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/main.Todo'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/main.Todo'
+        "400":
+          description: Invalid input
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+        "500":
+          description: Failed to create todo
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+      summary: Create a new todo
+      tags:
+      - Todos
+  /todo/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a todo item from the database by ID
+      parameters:
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Todo not found
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+      summary: Delete a todo by ID
+      tags:
+      - Todos
+    get:
+      consumes:
+      - application/json
+      description: Retrieve a todo item by its ID from the database
+      parameters:
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.Todo'
+        "404":
+          description: Todo not found
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+      summary: Get a todo by ID
+      tags:
+      - Todos
+    put:
+      consumes:
+      - application/json
+      description: Update an existing todo item in the database by ID
+      parameters:
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Updated todo data
+        in: body
+        name: todo
+        required: true
+        schema:
+          $ref: '#/definitions/main.Todo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Updated
+          schema:
+            $ref: '#/definitions/main.Todo'
+        "400":
+          description: Invalid input
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+        "404":
+          description: Todo not found
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+      summary: Update an existing todo
+      tags:
+      - Todos
+  /todo/changeStatus/{id}:
+    post:
+      consumes:
+      - application/json
+      description: Change the status of a todo item by its ID
+      parameters:
+      - description: Todo ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Status changed successfully
+          schema:
+            $ref: '#/definitions/main.StatusResponse'
+        "404":
+          description: Todo not found
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+      summary: Change the status of a todo
+      tags:
+      - Todos
+  /todos:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all todo items from the database
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/main.Todo'
+            type: array
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/main.ErrorResponse'
+      summary: Get all todos
+      tags:
+      - Todos
+swagger: "2.0"
